@@ -8,11 +8,15 @@ class Day2Spec extends FunSuite with Matchers {
   val testPath = "test-data/test-day-2.txt"
 
   test("read entries from file") {
-    readPasswords(testPath) shouldBe Seq("6-9 r: richard", "5-6 p: phillip", "1-2 a: ligia", "4-5 b: stuart")
+    readPasswords(testPath) shouldBe Seq("1-6 r: richard", "5-6 p: phillip", "1-2 i: ligia", "2-5 b: stuart")
   }
 
-  test("count the valid passwords") {
-    countValidPasswords(readPasswords(testPath)) shouldBe 1
+  test("count the valid passwords for first policy rule") {
+    countValidPasswordsPart1(readPasswords(testPath)) shouldBe 2
+  }
+
+  test("count the valid passwords for second policy rule") {
+    countValidPasswordsPart2(readPasswords(testPath)) shouldBe 1
   }
 
 }
