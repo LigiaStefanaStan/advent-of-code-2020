@@ -12,11 +12,11 @@ class Day2Spec extends FunSuite with Matchers {
   }
 
   test("count the valid passwords for first policy rule") {
-    countValidPasswordsPart1(readPasswords(testPath)) shouldBe 2
+    countValidPasswordsPart(readPasswords(testPath), isValidPasswordPart1) shouldBe 2
   }
 
   test("count the valid passwords for second policy rule") {
-    countValidPasswordsPart2(readPasswords(testPath)) shouldBe 1
+    countValidPasswordsPart(readPasswords(testPath), isValidPasswordPart2) shouldBe 1
   }
 
 }

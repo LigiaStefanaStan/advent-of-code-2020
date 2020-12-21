@@ -13,35 +13,24 @@ object Day2 {
   def main(args: Array[String]): Unit = {
     val passwordsList: Seq[String] = readPasswords(inputDataPath)
 
-    println("Part 1 ---------------------------------")
-    println(countValidPasswordsPart1(passwordsList))
-
-    println("Part 2 ---------------------------------")
-    println(countValidPasswordsPart2(passwordsList))
+    println("Part 1: " + countValidPasswordsPart(passwordsList, isValidPasswordPart1))
+    println("Part 2: " + countValidPasswordsPart(passwordsList, isValidPasswordPart2))
   }
 
   def readPasswords(path: String): Seq[String] = Source.fromResource(path).getLines().toList
 
-  //Part 1
-  def countValidPasswordsPart1(passwordsList: Seq[String]): Int =
+  def countValidPasswordsPart(passwordsList: Seq[String], satisfyPolicy: PasswordPolicy => Boolean): Int =
     passwordsList.count {
       case regexLine(min, max, char, password) =>
-        validatePasswordPart1(PasswordPolicy(min.toInt, max.toInt, char.head, password))
+        satisfyPolicy(PasswordPolicy(min.toInt, max.toInt, char.head, password))
     }
 
-  def validatePasswordPart1(passwordPolicy: PasswordPolicy): Boolean = {
+  def isValidPasswordPart1(passwordPolicy: PasswordPolicy): Boolean = {
     val passwordLength = passwordPolicy.password.count(_ == passwordPolicy.letter)
     passwordLength >= passwordPolicy.min && passwordLength <= passwordPolicy.max
   }
 
-  //Part 2
-  def countValidPasswordsPart2(passwordsList: Seq[String]): Int =
-    passwordsList.count {
-      case regexLine(min, max, char, password) =>
-        validatePasswordPart2(PasswordPolicy(min.toInt, max.toInt, char.head, password))
-    }
-
-  def validatePasswordPart2(passwordPolicy: PasswordPolicy): Boolean = {
+  def isValidPasswordPart2(passwordPolicy: PasswordPolicy): Boolean = {
     val minPasswordChar = passwordPolicy.password.charAt(passwordPolicy.min - 1)
     val maxPasswordChar = passwordPolicy.password.charAt(passwordPolicy.max - 1)
 
