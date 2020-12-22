@@ -13,13 +13,13 @@ object Day2 {
   def main(args: Array[String]): Unit = {
     val passwordsList: Seq[String] = readPasswords(inputDataPath)
 
-    println("Part 1: " + countValidPasswordsPart(passwordsList, isValidPasswordPart1))
-    println("Part 2: " + countValidPasswordsPart(passwordsList, isValidPasswordPart2))
+    println("Part 1: " + countValidPasswords(passwordsList, isValidPasswordPart1))
+    println("Part 2: " + countValidPasswords(passwordsList, isValidPasswordPart2))
   }
 
   def readPasswords(path: String): Seq[String] = Source.fromResource(path).getLines().toList
 
-  def countValidPasswordsPart(passwordsList: Seq[String], satisfyPolicy: PasswordPolicy => Boolean): Int =
+  def countValidPasswords(passwordsList: Seq[String], satisfyPolicy: PasswordPolicy => Boolean): Int =
     passwordsList.count {
       case regexLine(min, max, char, password) =>
         satisfyPolicy(PasswordPolicy(min.toInt, max.toInt, char.head, password))
