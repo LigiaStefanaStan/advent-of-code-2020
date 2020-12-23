@@ -12,4 +12,8 @@ class Day4Spec extends FunSuite with Matchers {
     countValidPassports(mapPassports(testData), isValidPassport) shouldBe 2
   }
 
+  test("count the number of valid passports based on the given rules") {
+    countValidPassports(mapPassports(testData), isValidPassportBasedOnRules) shouldBe 2
+  }
+
 }
